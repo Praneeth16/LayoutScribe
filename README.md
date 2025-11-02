@@ -11,7 +11,7 @@ Built with **LangGraph** (agent orchestration), **LiteLLM** (provider-agnostic m
 
 > No OCR engines, no heuristic parsers. Rendering to images is allowed; all structure and text understanding is done by a **multimodal LLM**.
 
-## Features (0.1)
+## Features
 - Inputs: PDF, PPTX, DOCX (rendered pages/slides as images)
 - Outputs:
   - Markdown (headings, lists, tables, captions)
@@ -27,19 +27,6 @@ Built with **LangGraph** (agent orchestration), **LiteLLM** (provider-agnostic m
 ## Status
 0.1 (alpha) released — see [CHANGELOG.md](CHANGELOG.md) and [docs/ROADMAP.md](docs/ROADMAP.md).
 
-## Quick Links
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) – modules & flow
-- [docs/PROMPTS_AND_SCHEMA.md](docs/PROMPTS_AND_SCHEMA.md) – prompt rules and schema notes
-- [docs/schema/layout_page.schema.json](docs/schema/layout_page.schema.json) – formal JSON Schema (Draft 2020-12)
-- [docs/CONFIGURATION.md](docs/CONFIGURATION.md) – env vars, provider-specific setup, .env example
-- [docs/API_SPEC.md](docs/API_SPEC.md) / [docs/CLI_SPEC.md](docs/CLI_SPEC.md) – contracts & examples
-- [docs/BENCHMARKS.md](docs/BENCHMARKS.md) – datasets & metrics
-- [docs/TESTING_STRATEGY.md](docs/TESTING_STRATEGY.md) – testing plan & commands
-- [docs/PROVIDERS.md](docs/PROVIDERS.md) – model matrix & concurrency guidance
-- [docs/SECURITY.md](docs/SECURITY.md) – keys, artifacts, and vulnerability reporting
-- [docs/ROADMAP.md](docs/ROADMAP.md) – milestones
-- [CONTRIBUTING.md](CONTRIBUTING.md) – how to help
-- [CHANGELOG.md](CHANGELOG.md) – notable changes
 
 ## Installation
 
