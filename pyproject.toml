@@ -1,0 +1,89 @@
+[build-system]
+requires = [
+  "setuptools>=68",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "layoutscribe"
+version = "0.1.0a3"
+description = "LLM-only, agentic layout & text extraction to Markdown/Text/Layout JSON"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "LayoutScribe Contributors" }
+]
+keywords = ["llm", "vision", "layout", "markdown", "pdf", "pptx", "docx"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Text Processing :: Markup :: Markdown",
+]
+dependencies = [
+  "litellm",
+  "langgraph",
+  "mlflow",
+  "pydantic>=2",
+  "pydantic-settings",
+  "pymupdf",
+  "Pillow",
+  "typer>=0.9",
+  "jsonschema",
+  "tenacity",
+]
+
+[project.optional-dependencies]
+office = [
+  "python-pptx",
+  "python-docx",
+]
+dev = [
+  "ruff",
+  "black",
+  "pytest",
+  "pytest-asyncio",
+]
+
+[project.scripts]
+layoutscribe = "layoutscribe.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+layoutscribe = ["schema/*.json"]
+
+[project.urls]
+Homepage = "https://github.com/your-org/layoutscribe"
+Issues = "https://github.com/your-org/layoutscribe/issues"
+Documentation = "https://github.com/your-org/layoutscribe#readme"
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = [
+  "E",
+  "F",
+  "I",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+

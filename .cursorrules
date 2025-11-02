@@ -1,0 +1,117 @@
+name: LayoutScribe Python Standards
+
+description: |
+  Rules for editing, generating, and reviewing code and docs in LayoutScribe.
+  This is a Python package targeting Python 3.10+ with a CLI.
+
+goals:
+  - Maintain clear, typed, readable Python code with strong contracts
+  - Keep docs and specs as the source of truth; update them alongside code
+  - Ensure security of keys and artifacts; never log secrets
+
+editor:
+  indentation:
+    useTabs: false
+    size: 2
+  trimTrailingWhitespace: true
+  insertFinalNewline: true
+
+python:
+  version: "3.10"
+  style:
+    - use_ruff: true
+    - use_black: true
+    - prefer_explicit_types_for_apis: true
+    - avoid_any: true
+    - long_lines_wrap: true
+    - prefer_guard_clauses: true
+  naming:
+    functions: snake_case
+    classes: PascalCase
+    constants: UPPER_SNAKE_CASE
+    variables: snake_case
+  comments:
+    - no_obvious_comments
+    - document_nontrivial_rationale_only
+    - avoid_todo_comments
+
+package:
+  structure:
+    - src/layoutscribe/__init__.py
+    - src/layoutscribe/api.py
+    - src/layoutscribe/cli.py
+    - src/layoutscribe/config.py
+    - src/layoutscribe/types.py
+    - src/layoutscribe/agents/
+    - src/layoutscribe/llm/
+    - src/layoutscribe/layout/
+    - src/layoutscribe/tracing/
+    - src/layoutscribe/utils/
+  dependencies:
+    required:
+      - litellm
+      - langgraph
+      - mlflow
+      - pydantic>=2
+      - pydantic-settings
+      - pymupdf
+      - Pillow
+      - typer
+      - jsonschema
+    optional:
+      - python-pptx
+      - python-docx
+  cli:
+    entrypoint: layoutscribe.cli:app
+    tool: typer
+
+security:
+  secrets:
+    - never_log_keys
+    - respect_env_precedence
+    - support_.env_for_local
+  artifacts:
+    - default_no_intermediate_persist
+    - provide_save_intermediate_flag
+    - temp_dirs_are_ephemeral
+
+docs:
+  must_update_with_code_changes:
+    - docs/API_SPEC.md
+    - docs/CLI_SPEC.md
+    - docs/PROMPTS_AND_SCHEMA.md
+    - docs/ARCHITECTURE.md
+    - docs/CONFIGURATION.md
+  schema:
+    canonical: docs/schema/layout_page.schema.json
+
+testing:
+  runner: pytest
+  async: pytest-asyncio
+  schema_validation: jsonschema
+  golden_tests: enabled
+
+benchmarks:
+  mlflow: opt_in
+  scripts:
+    - scripts/run_benchmark.py
+
+commits:
+  conventional: true
+  types:
+    - feat
+    - fix
+    - docs
+    - chore
+    - refactor
+    - test
+    - perf
+    - ci
+
+pull_requests:
+  require:
+    - updated docs/specs if interfaces change
+    - passing tests and lints
+    - security checklist for artifact handling
+
+

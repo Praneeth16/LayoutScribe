@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://layoutscribe.dev/schema/layout_page.schema.json",
+  "title": "LayoutScribe Page",
+  "type": "object",
+  "required": ["page_number", "width_px", "height_px", "blocks"],
+  "properties": {
+    "page_number": { "type": "integer", "minimum": 1 },
+    "width_px": { "type": "integer", "minimum": 1 },
+    "height_px": { "type": "integer", "minimum": 1 },
+    "blocks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/block" },
+      "minItems": 0
+    }
+  },
+  "$defs": {
+    "bbox": {
+      "type": "array",
+      "items": { "type": "number", "minimum": 0, "maximum": 1 },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "table": {
+      "type": "object",
+      "required": ["rows"],
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "block": {
+      "type": "object",
+      "required": ["id", "type", "bbox"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": [
+            "title", "heading", "paragraph", "list_item", "table",
+            "figure", "equation", "caption", "footer", "header"
+          ]
+        },
+        "bbox": { "$ref": "#/$defs/bbox" },
+        "text": { "type": "string" },
+        "level": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "table": { "$ref": "#/$defs/table" },
+        "conf": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "heading" } } },
+          "then": { "required": ["level"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "table" } } },
+          "then": { "required": ["table"] }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
+
+
